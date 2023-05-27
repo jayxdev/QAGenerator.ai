@@ -79,4 +79,11 @@ def generate_test_faq(page):
     #pprint(answer)
     return questions, answer
 
+def generate_bool(page):
+    questions = page["Questions"]
+    answer = page['answer']
+    #pprint(questions)
+    #pprint(answer)
+    return questions, answer
 generate_test(page)
+

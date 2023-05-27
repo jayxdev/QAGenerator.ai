@@ -241,8 +241,15 @@ class BoolQGen:
         final= {}
         final['Text']= text
         final['Count']= num
-        final['Boolean Questions']= output
-            
+        final['Questions']= output
+        answerlist=[]
+        for question in output:
+            qg = AnswerPredictor()
+            payload={"input_text": text,
+                     "input_question": question }
+            ans=qg.predict_answer(payload)
+            answerlist.append(ans.split(',', 1)[0])
+        final['answer']= answerlist
         return final
             
 class AnswerPredictor:

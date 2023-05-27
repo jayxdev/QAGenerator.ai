@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, flash, redirect, url_for
 from AI import main, generateTest
 from AI.subjective import SubjectiveTest
+from wikki_extractor import wikki_extractor
 
 app = Flask(__name__, static_folder="web/static", template_folder="web/templates")
 
@@ -14,7 +15,16 @@ app.secret_key = 'aica2'
 @app.route('/')
 def index():
     return render_template('index.html')
-
+@app.route('/wikki_extractor', methods=["POST"])
+def wiki():
+    if request.method == "POST":
+        keyword = request.form["keyword"]
+        length = int(request.form["now"])
+        result = wikki_extractor(keyword, length)
+        #print(result)
+        return render_template('index.html', results=result)
+    else:
+        return render_template('index.html', results="error")
 
 @app.route('/test_generate', methods=["POST"])
 def test_generate():
@@ -40,7 +50,7 @@ def test_generate():
         elif testType == "Yes-No":
             qe = main.BoolQGen()
             yesNo_generator = qe.predict_boolq(payload)
-            question_list, answer_list = generateTest.generate_test(yesNo_generator)
+            question_list, answer_list = generateTest.generate_bool(yesNo_generator)
             testgenerate = zip(question_list, answer_list)
             return render_template('generatedtestdata.html', cresults=testgenerate)
         elif testType == "Faq":
