@@ -1,6 +1,9 @@
 {% extends 'layout.html' %}
 {% block body %}
-<div class="row align-items-center d-flex  justify-content-center">
+<script src="{{ url_for('static', filename='particles.js') }}"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+<div id="particles-js">
+<div class="row align-items-center d-flex  justify-content-center"  style="background-color: black;">
     <div class="col-12 mb-4">
         <div class="card border-light shadow-sm components-section align-items-center d-flex  justify-content-center">
             <div class="card-body align-items-center d-flex justify-content-center">     
@@ -8,7 +11,7 @@
                     <div class="col-lg-12 col-sm-16">
                       <h3 class="h3 text-center">GENERATE QUESTIONS & ANSWERS</h3>  
                     </div>
-                    <img src="{{ url_for('static', filename='download.jpeg') }}" height="400px" width="500px">
+                    <img  src="{{ url_for('static', filename='question-mark.jpg') }}"  height="600" >
                     <div class="card-body">
                               <form method="POST" action="wikki_extractor">
                                   <div class="row">
@@ -45,12 +48,14 @@
                                         <input type="number" name="noq" class="form-control" placeholder="No. of Questions" min="1" required>
                                     </div>  
                                    <input type="submit" class="btn btn-primary" value="Generate">
-                        </form>
                                 </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}
